@@ -1,0 +1,10 @@
+﻿@model LogoutViewModel
+<div class="page-header logged-out">
+        <iframe width="0" height="0" class="signout" src="@Model.SignOutIframeUrl"></iframe>
+        <input asp-for="PostLogoutRedirectUri" type="hidden" id="PostLogoutRedirectUri" />
+</div>
+
+@section scripts
+{
+    <script src="~/js/signout-redirect.js"></script>
+}

@@ -1,0 +1,22 @@
+﻿@{
+    ViewData["Title"] = "Api Calls";
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <div class="row">
+                <div class="list-group">
+                    <button type="button" onclick="CallApi('Free')" class="list-group-item list-group-item-action">Get Free Document</button>
+                    <button type="button" onclick="CallApi('Personal')" class="list-group-item list-group-item-action">Get Personal Document</button>
+                </div>
+            </div>
+        </div>
+        <div class="col-9">
+            <input id="documentName"/>
+            <code id="result">
+
+            </code>
+        </div>
+    </div>
+</div>

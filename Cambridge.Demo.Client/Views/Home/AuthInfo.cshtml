@@ -1,0 +1,99 @@
+﻿@model Cambridge.Demo.Client.Models.AuthInfoViewModel;
+
+@{
+    ViewData["Title"] = "Info";
+}
+
+
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <div class="row">
+                <div class="list-group">
+                    <button type="button" data-toggle="collapse" data-target="#idTokenCollapse" class="list-group-item list-group-item-action">Id Token</button>
+                    <button type="button" data-toggle="collapse" data-target="#accessTokenCollapse" class="list-group-item list-group-item-action">Access Token</button>
+                    <button type="button" data-toggle="collapse" data-target="#userClaimCollapse" class="list-group-item list-group-item-action">User Claims</button>
+                </div>
+            </div>
+        </div>
+        <div class="col-9">
+            <div class="row">
+                <div class="collapse multi-collapse" id="idTokenCollapse">
+                    <div class="card card-body">
+                        <h6>Id Token</h6>
+                        <p>Header</p>
+                        <code>
+                            @Model.IdToken.Header
+                        </code>
+                        <br />
+                        <p>Body</p>
+                        <code>
+                            @Model.IdToken.Body
+                        </code>
+                        <br />
+                        <p>Signature</p>
+                        <code>
+                            @Model.IdToken.Signature
+                        </code>
+                        <p>Body Data</p>
+                        <code>
+                            @foreach (var claim in Model.IdToken.PayloadData)
+                            {
+                                <p>@claim.Key : @claim.Value</p>
+                            }
+                        </code>
+                    </div>
+                </div>
+                <div class="collapse multi-collapse" id="accessTokenCollapse">
+                    <div class="card card-body">
+
+                        @if (string.IsNullOrEmpty(Model.AccessToken.Header))
+                        {
+                            <h6>Access Token</h6>
+                            <code>
+
+                                @Model.AccessToken.Body
+                            </code>
+                        }
+                        else
+                        {
+                            <h6>Access Token</h6>
+                            <p>Header</p>
+                            <code>
+                                @Model.AccessToken.Header
+                            </code>
+                            <br />
+                            <p>Body</p>
+                            <code>
+                                @Model.AccessToken.Body
+                            </code>
+                            <br />
+                            <p>Signature</p>
+                            <code>
+                                @Model.AccessToken.Signature
+                            </code>
+                            <p>Body Data</p>
+                            <code>
+                                @foreach (var claim in Model.AccessToken.PayloadData)
+                                {
+                                    <p>@claim.Key : @claim.Value</p>
+                                }
+                            </code>
+                        }
+                    </div>
+                </div>
+                <div class="collapse multi-collapse" id="userClaimCollapse">
+                    <div class="card card-body">
+                        <h6>User Claims</h6>
+                        <code>
+                                @foreach (var userClaim in User.Claims)
+                                {
+                                    <p>@userClaim.Type : @userClaim.Value</p>
+                                }
+                        </code>
+                        </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
