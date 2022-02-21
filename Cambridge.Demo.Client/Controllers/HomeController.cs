@@ -21,8 +21,8 @@ namespace Cambridge.Demo.Client.Controllers
 
 		public async Task<IActionResult> AuthInfo()
 		{
-			AuthInfoViewModel authInfoModel = new AuthInfoViewModel
-			{
+			AuthInfoViewModel authInfoModel = new()
+            {
 				AccessToken = BuildTokenViewModel(await HttpContext.GetTokenAsync(OpenIdConnectParameterNames.AccessToken)),
 				IdToken = BuildTokenViewModel(await HttpContext.GetTokenAsync(OpenIdConnectParameterNames.IdToken)),
 			};

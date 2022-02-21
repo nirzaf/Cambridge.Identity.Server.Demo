@@ -20,7 +20,7 @@ namespace Cambridge.Demo.Client.Terminal
 			DiscoveryDocumentResponse disco = await Cache.GetAsync();
 			if (disco.IsError) throw new Exception(disco.Error);
 
-			HttpClient tokenClient = new HttpClient();
+			HttpClient tokenClient = new();
 			//This is an IdentityModel Extension for HttpClient
 			TokenResponse tokenResponse = await tokenClient.RequestClientCredentialsTokenAsync(new ClientCredentialsTokenRequest
 			{
@@ -33,7 +33,7 @@ namespace Cambridge.Demo.Client.Terminal
 			if (tokenResponse.IsError) throw new Exception(tokenResponse.Error);
 
 
-			HttpClient apiClient = new HttpClient();
+			HttpClient apiClient = new();
 			apiClient.BaseAddress = new Uri("https://localhost:61849/");
 			//Use IdentityModel Extension to set the AccessToken in the header of the HTTP request
 			apiClient.SetBearerToken(tokenResponse.AccessToken);

@@ -34,7 +34,7 @@ namespace Cambridge.Demo.Client.Controllers
 			    var refreshToken = await HttpContext.GetTokenAsync("refresh_token");
 			    if (refreshToken != null)
 			    {
-				    HttpClient refreshTokenClient = new HttpClient();
+				    HttpClient refreshTokenClient = new();
 
 				    TokenResponse refreshResponse = await refreshTokenClient.RequestRefreshTokenAsync(new RefreshTokenRequest
 				    {
@@ -98,7 +98,7 @@ namespace Cambridge.Demo.Client.Controllers
 
 				if (refreshToken != null)
 				{
-					HttpClient refreshTokenClient = new HttpClient();
+					HttpClient refreshTokenClient = new();
 
 					TokenResponse refreshResponse = await refreshTokenClient.RequestRefreshTokenAsync(new RefreshTokenRequest
 					{

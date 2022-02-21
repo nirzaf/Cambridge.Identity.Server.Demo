@@ -31,7 +31,7 @@ namespace Cambridge.Demo.Client.Controllers
 
 			if (refreshToken != null)
 			{
-				HttpClient httpClient = new HttpClient();
+				HttpClient httpClient = new();
 
 				TokenRevocationResponse revokationResult = await httpClient.RevokeTokenAsync(new TokenRevocationRequest
 				{

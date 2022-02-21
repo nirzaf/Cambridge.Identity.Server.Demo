@@ -34,7 +34,7 @@ namespace Cambridge.Demo.AuthServer.Controllers
 		[AllowAnonymous]
 		public IActionResult Login(string returnUrl)
 		{
-			LoginViewModel model = new LoginViewModel();
+			LoginViewModel model = new();
 			model.ReturnUrl = returnUrl;
 
 			return View(model);
@@ -51,7 +51,7 @@ namespace Cambridge.Demo.AuthServer.Controllers
 		        {
 			        TestUser user = _userStore.FindByUsername(model.Email);
 
-					IdentityServerUser identityUser = new IdentityServerUser(user.SubjectId)
+					IdentityServerUser identityUser = new(user.SubjectId)
 					{
 						DisplayName = user.Username,
 						AdditionalClaims = user.Claims
@@ -75,8 +75,8 @@ namespace Cambridge.Demo.AuthServer.Controllers
         {
 	        LogoutRequest logout = await _interaction.GetLogoutContextAsync(logoutId);
 
-			LogoutViewModel vm = new LogoutViewModel
-	        {
+			LogoutViewModel vm = new()
+            {
 				PostLogoutRedirectUri = logout?.PostLogoutRedirectUri,
 				SignOutIframeUrl = logout.SignOutIFrameUrl,
 				LogoutId = logoutId

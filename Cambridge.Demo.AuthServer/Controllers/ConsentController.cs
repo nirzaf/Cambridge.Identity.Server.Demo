@@ -48,8 +48,8 @@ namespace Cambridge.Demo.AuthServer.Controllers
 			if (consentContext is null)
 				return null;
 
-			ConsentViewModel vm = new ConsentViewModel
-			{
+			ConsentViewModel vm = new()
+            {
 				RememberConsent = model?.RememberConsent ?? true,
 				ScopesConsented = model?.ScopesConsented ?? Enumerable.Empty<string>(),
 				ReturnUrl = returnUrl,
@@ -115,7 +115,7 @@ namespace Cambridge.Demo.AuthServer.Controllers
 
 		async Task<ProcessConsentResult> ProcessConsent(ConsentInputModel model)
 		{
-			ProcessConsentResult result = new ProcessConsentResult();
+			ProcessConsentResult result = new();
 
 			//Validate return url is still valid
 			AuthorizationRequest request = await _interaction.GetAuthorizationContextAsync(model.ReturnUrl);

@@ -31,7 +31,7 @@ namespace Cambridge.Demo.Client
 
 		void ConfigureAuthentication(IServiceCollection services)
 		{
-			IdentitySettings identitySettings = new IdentitySettings(Configuration);
+			IdentitySettings identitySettings = new(Configuration);
 
 			services.AddSingleton(identitySettings);
 			JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Clear();
