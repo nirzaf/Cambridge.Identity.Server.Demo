@@ -1,4 +1,5 @@
-﻿using Cambridge.Demo.AuthServer.Models;
+﻿using System.Collections.Generic;
+using Cambridge.Demo.AuthServer.Models;
 using IdentityServer4.Events;
 using IdentityServer4.Extensions;
 using IdentityServer4.Models;
@@ -32,7 +33,7 @@ namespace Cambridge.Demo.AuthServer.Controllers
 
 		public async Task<IActionResult> Index(string returnUrl)
 		{
-			var consentViewModel = await CreateConsentViewModel(returnUrl);
+			ConsentViewModel consentViewModel = await CreateConsentViewModel(returnUrl);
 			if (consentViewModel != null)
 			{
 				return View(consentViewModel);
@@ -43,11 +44,11 @@ namespace Cambridge.Demo.AuthServer.Controllers
 
 		async Task<ConsentViewModel> CreateConsentViewModel(string returnUrl, ConsentInputModel model = null)
 		{
-			var consentContext = await GetConsentContext(returnUrl);
+			ConsentContext consentContext = await GetConsentContext(returnUrl);
 			if (consentContext is null)
 				return null;
 
-			var vm = new ConsentViewModel
+			ConsentViewModel vm = new ConsentViewModel
 			{
 				RememberConsent = model?.RememberConsent ?? true,
 				ScopesConsented = model?.ScopesConsented ?? Enumerable.Empty<string>(),
@@ -91,7 +92,7 @@ namespace Cambridge.Demo.AuthServer.Controllers
 		[ValidateAntiForgeryToken]
 		public async Task<IActionResult> Index(ConsentInputModel model)
 		{
-			var result = await ProcessConsent(model);
+			ProcessConsentResult result = await ProcessConsent(model);
 			
 			if (result.IsRedirect)
 			{
@@ -114,10 +115,10 @@ namespace Cambridge.Demo.AuthServer.Controllers
 
 		async Task<ProcessConsentResult> ProcessConsent(ConsentInputModel model)
 		{
-			var result = new ProcessConsentResult();
+			ProcessConsentResult result = new ProcessConsentResult();
 
 			//Validate return url is still valid
-			var request = await _interaction.GetAuthorizationContextAsync(model.ReturnUrl);
+			AuthorizationRequest request = await _interaction.GetAuthorizationContextAsync(model.ReturnUrl);
 			if (request == null) return result;
 
 			ConsentResponse grantedConsent = null;
@@ -135,7 +136,7 @@ namespace Cambridge.Demo.AuthServer.Controllers
 				//If the user consented to some scope, build the response model
 				if (model.ScopesConsented != null && model.ScopesConsented.Any())
 				{
-					var scopes = model.ScopesConsented;
+					IEnumerable<string> scopes = model.ScopesConsented;
 					
 					grantedConsent = new ConsentResponse
 					{
@@ -198,7 +199,7 @@ namespace Cambridge.Demo.AuthServer.Controllers
 		
 		async Task<ConsentContext> GetConsentContext(string returnUrl)
 		{
-			var request = await _interaction.GetAuthorizationContextAsync(returnUrl);
+			AuthorizationRequest request = await _interaction.GetAuthorizationContextAsync(returnUrl);
 			if (request is null)
 				return null;
 

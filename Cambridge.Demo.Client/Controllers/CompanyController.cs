@@ -24,7 +24,7 @@ namespace Cambridge.Demo.Client.Controllers
         [HttpGet]
 	    public async Task<IActionResult> GetFreeDocument(string documentName)
 	    {
-		    var res = await GetFreeDocumentResponse(documentName);
+		    HttpResponseMessage res = await GetFreeDocumentResponse(documentName);
 
 		    if (res.IsSuccessStatusCode)
 			    return Ok(await res.Content.ReadAsStringAsync());
@@ -34,9 +34,9 @@ namespace Cambridge.Demo.Client.Controllers
 			    var refreshToken = await HttpContext.GetTokenAsync("refresh_token");
 			    if (refreshToken != null)
 			    {
-				    var refreshTokenClient = new HttpClient();
+				    HttpClient refreshTokenClient = new HttpClient();
 
-				    var refreshResponse = await refreshTokenClient.RequestRefreshTokenAsync(new RefreshTokenRequest
+				    TokenResponse refreshResponse = await refreshTokenClient.RequestRefreshTokenAsync(new RefreshTokenRequest
 				    {
 					    Address = _identitySettings.TokenEndpoint,
 
@@ -48,7 +48,7 @@ namespace Cambridge.Demo.Client.Controllers
 
 				    if (!refreshResponse.IsError)
 				    {
-					    var authInfo = await HttpContext.AuthenticateAsync("Cookies");
+					    AuthenticateResult authInfo = await HttpContext.AuthenticateAsync("Cookies");
 					    authInfo.Properties.UpdateTokenValue(
 						    "access_token",
 						    refreshResponse.AccessToken);
@@ -75,7 +75,7 @@ namespace Cambridge.Demo.Client.Controllers
 
 	    async Task<HttpResponseMessage> GetFreeDocumentResponse(string documentName)
 	    {
-		    var client = _clientFactory.CreateClient("apiClient");
+		    HttpClient client = _clientFactory.CreateClient("apiClient");
 		    var accessToken = await HttpContext.GetTokenAsync("access_token");
 
 		    client.SetBearerToken(accessToken);
@@ -86,7 +86,7 @@ namespace Cambridge.Demo.Client.Controllers
 	    [HttpGet]
 	    public async Task<IActionResult> GetPersonalDocument(string documentName)
 	    {
-		    var res = await GetPersonalDocumentResponse(documentName);
+		    HttpResponseMessage res = await GetPersonalDocumentResponse(documentName);
 
 			if (res.IsSuccessStatusCode)
 			    return Ok(await res.Content.ReadAsStringAsync());
@@ -98,9 +98,9 @@ namespace Cambridge.Demo.Client.Controllers
 
 				if (refreshToken != null)
 				{
-					var refreshTokenClient = new HttpClient();
+					HttpClient refreshTokenClient = new HttpClient();
 
-					var refreshResponse = await refreshTokenClient.RequestRefreshTokenAsync(new RefreshTokenRequest
+					TokenResponse refreshResponse = await refreshTokenClient.RequestRefreshTokenAsync(new RefreshTokenRequest
 					{
 						Address = _identitySettings.TokenEndpoint,
 
@@ -112,7 +112,7 @@ namespace Cambridge.Demo.Client.Controllers
 
 					if (!refreshResponse.IsError)
 					{
-						var authInfo = await HttpContext.AuthenticateAsync("Cookies");
+						AuthenticateResult authInfo = await HttpContext.AuthenticateAsync("Cookies");
 						authInfo.Properties.UpdateTokenValue(
 							"access_token",
 							refreshResponse.AccessToken);
@@ -140,7 +140,7 @@ namespace Cambridge.Demo.Client.Controllers
 
 	    async Task<HttpResponseMessage> GetPersonalDocumentResponse(string documentName)
 	    {
-		    var client = _clientFactory.CreateClient("apiClient");
+		    HttpClient client = _clientFactory.CreateClient("apiClient");
 		    var accessToken = await HttpContext.GetTokenAsync("access_token");
 
 		    client.SetBearerToken(accessToken);

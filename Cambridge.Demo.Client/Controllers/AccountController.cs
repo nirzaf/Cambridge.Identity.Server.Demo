@@ -31,9 +31,9 @@ namespace Cambridge.Demo.Client.Controllers
 
 			if (refreshToken != null)
 			{
-				var httpClient = new HttpClient();
+				HttpClient httpClient = new HttpClient();
 
-				var revokationResult = await httpClient.RevokeTokenAsync(new TokenRevocationRequest
+				TokenRevocationResponse revokationResult = await httpClient.RevokeTokenAsync(new TokenRevocationRequest
 				{
 					Address = _identitySettings.RevocationEndpoint,
 					ClientId = _identitySettings.ClientId,

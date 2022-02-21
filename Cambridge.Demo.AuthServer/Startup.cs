@@ -19,7 +19,7 @@ namespace Cambridge.Demo.AuthServer
 
 		public void ConfigureServices(IServiceCollection services)
 		{ 
-			var clientSettings = new ClientSettings(Configuration);
+			ClientSettings clientSettings = new ClientSettings(Configuration);
 
 			services.AddControllersWithViews();
 			services.AddRazorPages();

@@ -1,4 +1,6 @@
-﻿@model Cambridge.Demo.Client.Models.AuthInfoViewModel;
+﻿@using Newtonsoft.Json.Linq
+@using System.Security.Claims
+@model Cambridge.Demo.Client.Models.AuthInfoViewModel;
 
 @{
     ViewData["Title"] = "Info";
@@ -37,7 +39,7 @@
                         </code>
                         <p>Body Data</p>
                         <code>
-                            @foreach (var claim in Model.IdToken.PayloadData)
+                            @foreach (KeyValuePair<string, JToken?> claim in Model.IdToken.PayloadData)
                             {
                                 <p>@claim.Key : @claim.Value</p>
                             }
@@ -74,7 +76,7 @@
                             </code>
                             <p>Body Data</p>
                             <code>
-                                @foreach (var claim in Model.AccessToken.PayloadData)
+                                @foreach (KeyValuePair<string, JToken?> claim in Model.AccessToken.PayloadData)
                                 {
                                     <p>@claim.Key : @claim.Value</p>
                                 }
@@ -86,7 +88,7 @@
                     <div class="card card-body">
                         <h6>User Claims</h6>
                         <code>
-                                @foreach (var userClaim in User.Claims)
+                                @foreach (Claim userClaim in User.Claims)
                                 {
                                     <p>@userClaim.Type : @userClaim.Value</p>
                                 }

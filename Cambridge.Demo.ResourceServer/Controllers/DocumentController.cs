@@ -28,10 +28,10 @@ namespace Cambridge.Demo.ResourceServer.Controllers
 		[HttpGet]
 	    public async Task<IActionResult> GetFree(string name)
 	    {
-		    var auth = await _authorizationService.AuthorizeAsync(User, "ScopedPolicy");
+		    AuthorizationResult auth = await _authorizationService.AuthorizeAsync(User, "ScopedPolicy");
 		    if (auth.Succeeded)
 		    {
-			    var result = DocumentRepository.FreeDocuments.SingleOrDefault(x => x.Name.Equals(name));
+			    Document result = DocumentRepository.FreeDocuments.SingleOrDefault(x => x.Name.Equals(name));
 
 			    if (result is null)
 				    return NotFound();
@@ -43,11 +43,11 @@ namespace Cambridge.Demo.ResourceServer.Controllers
 		[HttpGet]
 		public async Task<IActionResult> GetPersonal(string name)
 	    {
-		    var result = DocumentRepository.PersonalDocuments.SingleOrDefault(x => x.Name.Equals(name));
+		    Document result = DocumentRepository.PersonalDocuments.SingleOrDefault(x => x.Name.Equals(name));
 		    if (result is null)
 			    return NotFound();
 
-			var auth = await _authorizationService.AuthorizeAsync(User, result,"DocumentOwnerPolicy");
+			AuthorizationResult auth = await _authorizationService.AuthorizeAsync(User, result,"DocumentOwnerPolicy");
 		    if (auth.Succeeded)
 			    return Ok(result.Content);
 

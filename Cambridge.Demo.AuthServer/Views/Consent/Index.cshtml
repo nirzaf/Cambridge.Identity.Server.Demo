@@ -26,7 +26,7 @@
                             Personal Information
                         </div>
                         <ul class="list-group">
-                            @foreach (var scope in Model.IdentityScopes)
+                            @foreach (ScopeViewModel scope in Model.IdentityScopes)
                             {
                                 <partial name="_ScopeListItem" model="@scope" />
                             }
@@ -44,7 +44,7 @@
                             Application Access
                         </div>
                         <ul class="list-group">
-                            @foreach (var scope in Model.ApiScopes)
+                            @foreach (ScopeViewModel scope in Model.ApiScopes)
                             {
                                 <partial name="_ScopeListItem" model="scope" />
                             }

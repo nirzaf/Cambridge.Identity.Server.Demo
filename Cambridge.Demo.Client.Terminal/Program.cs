@@ -17,12 +17,12 @@ namespace Cambridge.Demo.Client.Terminal
 			//Use The Discovery Endpoint to get a list of AuthServer Endpoints
 			DiscoveryCache Cache = new("https://localhost:4001");
 
-			var disco = await Cache.GetAsync();
+			DiscoveryDocumentResponse disco = await Cache.GetAsync();
 			if (disco.IsError) throw new Exception(disco.Error);
 
-			var tokenClient = new HttpClient();
+			HttpClient tokenClient = new HttpClient();
 			//This is an IdentityModel Extension for HttpClient
-			var tokenResponse = await tokenClient.RequestClientCredentialsTokenAsync(new ClientCredentialsTokenRequest
+			TokenResponse tokenResponse = await tokenClient.RequestClientCredentialsTokenAsync(new ClientCredentialsTokenRequest
 			{
 				Address = disco.TokenEndpoint,
 				ClientId = "CambridgeDemoClientTwo",
@@ -33,7 +33,7 @@ namespace Cambridge.Demo.Client.Terminal
 			if (tokenResponse.IsError) throw new Exception(tokenResponse.Error);
 
 
-			var apiClient = new HttpClient();
+			HttpClient apiClient = new HttpClient();
 			apiClient.BaseAddress = new Uri("https://localhost:61849/");
 			//Use IdentityModel Extension to set the AccessToken in the header of the HTTP request
 			apiClient.SetBearerToken(tokenResponse.AccessToken);

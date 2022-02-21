@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
+using IdentityServer4.Models;
 
 namespace Cambridge.Demo.AuthServer.Controllers
 {
@@ -33,7 +34,7 @@ namespace Cambridge.Demo.AuthServer.Controllers
 		[AllowAnonymous]
 		public IActionResult Login(string returnUrl)
 		{
-			var model = new LoginViewModel();
+			LoginViewModel model = new LoginViewModel();
 			model.ReturnUrl = returnUrl;
 
 			return View(model);
@@ -43,14 +44,14 @@ namespace Cambridge.Demo.AuthServer.Controllers
         [AllowAnonymous]
         public async Task<IActionResult> Login(LoginViewModel model)
         {
-	        var context = await _interaction.GetAuthorizationContextAsync(model.ReturnUrl);
+	        AuthorizationRequest context = await _interaction.GetAuthorizationContextAsync(model.ReturnUrl);
 	        if (ModelState.IsValid)
 	        {
 		        if (_userStore.ValidateCredentials(model.Email,model.Password))
 		        {
-			        var user = _userStore.FindByUsername(model.Email);
+			        TestUser user = _userStore.FindByUsername(model.Email);
 
-					var identityUser = new IdentityServerUser(user.SubjectId)
+					IdentityServerUser identityUser = new IdentityServerUser(user.SubjectId)
 					{
 						DisplayName = user.Username,
 						AdditionalClaims = user.Claims
@@ -72,9 +73,9 @@ namespace Cambridge.Demo.AuthServer.Controllers
         [HttpGet]
         public async Task<IActionResult> Logout(string logoutId)
         {
-	        var logout = await _interaction.GetLogoutContextAsync(logoutId);
+	        LogoutRequest logout = await _interaction.GetLogoutContextAsync(logoutId);
 
-			var vm = new LogoutViewModel
+			LogoutViewModel vm = new LogoutViewModel
 	        {
 				PostLogoutRedirectUri = logout?.PostLogoutRedirectUri,
 				SignOutIframeUrl = logout.SignOutIFrameUrl,
