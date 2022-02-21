@@ -175,8 +175,8 @@ namespace Cambridge.Demo.AuthServer.Controllers
 
 
 		ScopeViewModel CreateScopeViewModel(Scope apiScope, bool check) =>
-			new ScopeViewModel
-			{
+			new()
+            {
 				Value = apiScope.Name,
 				DisplayName = apiScope.DisplayName ?? apiScope.Name,
 				Description = apiScope.Description,
@@ -186,8 +186,8 @@ namespace Cambridge.Demo.AuthServer.Controllers
 			};
 
 		ScopeViewModel CreateScopeViewModel(IdentityResource identity, bool check) => 
-			new ScopeViewModel
-			{
+			new()
+            {
 				Value = identity.Name,
 				DisplayName = identity.DisplayName,
 				Description = identity.Description,

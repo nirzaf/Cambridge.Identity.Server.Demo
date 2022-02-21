@@ -5,7 +5,7 @@ namespace Cambridge.Demo.ResourceServer
 {
 	public static class DocumentRepository
 	{
-		public static List<Document> FreeDocuments => new List<Document>()
+		public static List<Document> FreeDocuments => new()
 		{
 			new Document
 			{
@@ -19,10 +19,10 @@ namespace Cambridge.Demo.ResourceServer
 			}
 		};
 
-		public static List<Document> PersonalDocuments => new List<Document>()
+		public static List<Document> PersonalDocuments => new()
 		{
-			new Document
-			{
+			new Document()
+            {
 				Name = "Software Document",
 				Owner = Guid.Parse("d860efca-22d9-47fd-8249-791ba61b07c7"),
 				Content = "double result = param / 0"

@@ -15,7 +15,7 @@ namespace Cambridge.Demo.Client.Terminal
 			Console.WriteLine("Press a key To start");
 			Console.ReadKey();
 			//Use The Discovery Endpoint to get a list of AuthServer Endpoints
-			DiscoveryCache Cache = new DiscoveryCache("https://localhost:4001");
+			DiscoveryCache Cache = new("https://localhost:4001");
 
 			var disco = await Cache.GetAsync();
 			if (disco.IsError) throw new Exception(disco.Error);

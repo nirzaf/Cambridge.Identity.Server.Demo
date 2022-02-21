@@ -13,10 +13,10 @@ namespace Cambridge.Demo.AuthServer.Config
 		public static IdentityResource Profile = new IdentityResources.Profile();
 		public static IdentityResource Address = new IdentityResources.Address();
 		public static IdentityResource Phone = new IdentityResources.Phone();
-		public static ApiResource CambridgeDemo = new ApiResource("cambridgedemoapi", "Cambridge Demo Api");
-		public static ApiResource CompanyScope = new ApiResource("companyscope","Company Scope", new []{"role"});
+		public static ApiResource CambridgeDemo = new("cambridgedemoapi", "Cambridge Demo Api");
+		public static ApiResource CompanyScope = new("companyscope","Company Scope", new []{"role"});
 		
-		public static List<IdentityResource> GetIdentityResources() => new List<IdentityResource>()
+		public static List<IdentityResource> GetIdentityResources() => new()
 		{
 			OpenId,
 			Email,
@@ -25,7 +25,7 @@ namespace Cambridge.Demo.AuthServer.Config
 			Phone
 		};
 
-		public static List<ApiResource> GetApiResources() => new List<ApiResource>()
+		public static List<ApiResource> GetApiResources() => new()
 		{
 			CambridgeDemo,
 			CompanyScope,

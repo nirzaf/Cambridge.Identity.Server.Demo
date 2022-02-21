@@ -10,39 +10,39 @@ namespace Cambridge.Demo.AuthServer.Config
 		{
 			return new List<TestUser>
 			{
-				new TestUser
-				{
+				new()
+                {
 					SubjectId = "d860efca-22d9-47fd-8249-791ba61b07c7",
 					Username = "andrea.angella@cambridgedemo.com",
 					Password = "password",
 
 					Claims = new List<Claim>
 					{
-						new Claim("given_name", "Andrea"),
-						new Claim("family_name", "Angella"),
-						new Claim("address", "1, Main Road"),
-						new Claim("birthdate","14/07/1960"),
-						new Claim("phone_number","01236"),
-						new Claim("email","andrea.angella@cambridgedemo.com"),
-						new Claim("role","Software Engineer")
+						new("given_name", "Andrea"),
+						new("family_name", "Angella"),
+						new("address", "1, Main Road"),
+						new("birthdate","14/07/1960"),
+						new("phone_number","01236"),
+						new("email","andrea.angella@cambridgedemo.com"),
+						new("role","Software Engineer")
 					}
 				},
 
-				new TestUser
-				{
+				new()
+                {
 					SubjectId = "24f56fef-5cfc-44e0-b77a-8bae834ed030",
 					Username = "stefano.donofrio@cambridgedemo.com",
 					Password = "password",
 
 					Claims = new List<Claim>
 					{
-						new Claim("given_name", "Stefano"),
-						new Claim("family_name", "D'Onofrio"),
-						new Claim("address", "2, Big Street"),
-						new Claim("birthdate","19/09/2010"),
-						new Claim("phone_number","321321"),
-						new Claim("email","stefano.donofrio@cambridgedemo.com"),
-						new Claim("role","Manager")
+						new("given_name", "Stefano"),
+						new("family_name", "D'Onofrio"),
+						new("address", "2, Big Street"),
+						new("birthdate","19/09/2010"),
+						new("phone_number","321321"),
+						new("email","stefano.donofrio@cambridgedemo.com"),
+						new("role","Manager")
 					}
 				}
 			};
